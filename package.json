@@ -1,0 +1,54 @@
+{
+  "name": "cloudy-toy",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "concurrently -n web,api -c cyan,magenta \"vite\" \"tsx watch server/index.ts\"",
+    "build": "vite build && npm run build:api",
+    "start": "tsx server/index.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.server.json",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm test && npm run build",
+    "build:api": "esbuild server/vercel-entry.ts --bundle --platform=node --format=esm --target=node20 --packages=external --outfile=api/index.js --banner:js=\"import{createRequire as __cr}from'module';const require=__cr(import.meta.url);\"",
+    "embed": "node tools/embed-assets.mjs",
+    "cf:dev": "vite build && wrangler dev",
+    "cf:deploy": "vite build && wrangler deploy"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.45.4",
+    "bakong-khqr": "^1.0.20",
+    "compression": "^1.8.1",
+    "dotenv": "16.4.5",
+    "express": "^4.21.2",
+    "html-to-image": "1.11.11",
+    "qrcode": "^1.5.4",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "6.26.2",
+    "sharp": "0.33.5",
+    "tsx": "4.19.1",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/compression": "1.7.5",
+    "@types/express": "4.17.21",
+    "@types/node": "20.16.10",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "18.3.11",
+    "@types/react-dom": "18.3.0",
+    "@vitejs/plugin-react": "4.3.2",
+    "autoprefixer": "10.4.20",
+    "concurrently": "9.0.1",
+    "esbuild": "^0.24.0",
+    "postcss": "8.4.47",
+    "tailwindcss": "3.4.13",
+    "typescript": "5.6.2",
+    "vite": "^5.4.19",
+    "vitest": "^2.1.2",
+    "wrangler": "^4.0.0"
+  }
+}

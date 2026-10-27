@@ -1,0 +1,64 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+/* Auto size: the whole UI (rem based) grows a little on big screens and the page width follows the screen.
+   phone < 640 | tablet/iPad 640-1023 | laptop 1024-1279 | desktop 1280+ | large desktop 1536+ */
+html{background:#F4FAFF;color:#2f4156;-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+@media (min-width:1536px){html{font-size:106.25%}}
+@media (min-width:1920px){html{font-size:118%}}
+@media (min-width:2560px){html{font-size:137.5%}}
+body{background:#F4FAFF;color:#2f4156;font-family:"Dangrek",ui-rounded,"Nunito","Segoe UI",system-ui,sans-serif;overflow-x:hidden;overflow-x:clip;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+html.lang-km body{font-family:"Nokora","Noto Sans Khmer","Khmer OS Battambang","Leelawadee UI","Khmer UI",ui-rounded,system-ui,sans-serif;line-height:1.6}
+img,video,svg{max-width:100%}
+table{max-width:100%}
+/* 16px inputs on phones stop iOS Safari from zooming the page when a field is tapped */
+@media (max-width:639px){input,select,textarea{font-size:16px}}
+@layer components{
+  .page-wrap{width:100%;margin-inline:auto;padding-inline:1rem;max-width:80rem}
+  @media (min-width:640px){.page-wrap{padding-inline:1.5rem}}
+  @media (min-width:1024px){.page-wrap{padding-inline:2rem}}
+  @media (min-width:1536px){.page-wrap{max-width:96rem}}
+}
+:focus-visible{outline:3px solid #6CB8F5;outline-offset:2px}
+dialog{max-width:calc(100vw - 2rem)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Admin theme: soft sky-blue clouds, white sidebar, rounded white cards, blue action buttons ---------- */
+.admin-theme{background:radial-gradient(ellipse 40% 22% at 12% 4%,#fff 0,rgba(255,255,255,0) 70%),radial-gradient(ellipse 35% 20% at 88% 10%,#fff 0,rgba(255,255,255,0) 70%),radial-gradient(ellipse 45% 20% at 60% 100%,#fff 0,rgba(255,255,255,0) 70%),linear-gradient(180deg,#D9EEFF,#EAF6FF 55%,#F4FAFF);background-attachment:fixed;min-height:100vh}
+.admin-theme .bg-sky-pale{background-color:#EAF5FF}
+.admin-theme .hover\:bg-sky-pale:hover{background-color:#DCEEFF}
+.admin-theme .border-sky-border{border-color:#D8EAFE}
+.admin-theme .shadow-soft{box-shadow:0 8px 24px rgba(108,184,245,.16)}
+.admin-theme .shadow-lift{box-shadow:0 12px 28px rgba(108,184,245,.3)}
+.admin-theme :focus-visible{outline-color:#6CB8F5}
+.admin-theme button:not(:disabled),.admin-theme a.rounded-full{transition:transform .15s,box-shadow .15s,background-color .15s}
+.admin-theme button.rounded-full:not(:disabled):hover,.admin-theme a.rounded-full:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(108,184,245,.25)}
+.admin-theme input:focus,.admin-theme select:focus,.admin-theme textarea:focus{border-color:#6CB8F5;outline:2px solid rgba(108,184,245,.35);outline-offset:0}
+.admin-theme :where(.rounded-xl2){border-radius:1.5rem;border-color:transparent;box-shadow:0 8px 24px rgba(108,184,245,.14)}
+.admin-theme thead.bg-sky-pale{background-color:#E3F1FF}
+
+button,input,select,textarea{font-family:inherit;color:inherit}
+/* header stays fixed in place on phone, iPad and tablet */
+@media (max-width:1023px){header.sticky{position:-webkit-sticky;position:sticky;top:0}}
+
+/* header animations */
+@keyframes menuIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes itemIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+@keyframes badgePop{0%{transform:scale(.4)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
+.menu-in{animation:menuIn .25s ease-out}
+.menu-item{opacity:0;animation:itemIn .3s ease-out forwards}
+.badge-pop{animation:badgePop .4s ease-out}
+
+/* ---------- Invoice: print the invoice only (A4), at full size ---------- */
+@media print{
+  header,footer,aside,.no-print{display:none!important}
+  .admin-shell{box-shadow:none!important;background:#fff!important;border-radius:0!important;min-height:0!important;display:block!important}
+  .admin-main{padding:0!important}
+  html,body{background:#fff!important;min-height:0!important;height:auto!important}
+  .admin-theme{min-height:0!important;background:#fff!important}
+  main{padding:0!important}
+  .invoice-print-box{height:auto!important}
+  .invoice-print-inner{transform:none!important;margin-inline:auto;zoom:.98}
+  .invoice-print-inner.receipt-print{zoom:1;margin:0 auto}
+  .invoice-print-box{background:none!important;box-shadow:none!important;padding:0!important;margin:0!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:A4;margin:8mm}
+}

@@ -1,0 +1,14 @@
+[Unit]
+Description=Bakong payment watcher (Cloudy Toys)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=pi
+WorkingDirectory=/home/pi/cloudy-toy
+ExecStart=/usr/bin/node /home/pi/cloudy-toy/tools/bakong-watcher.mjs
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
