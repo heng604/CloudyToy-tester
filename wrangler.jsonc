@@ -11,6 +11,9 @@
     "run_worker_first": ["/api/*"]                    // only API calls wake the Worker; pages and images are free static files
   },
   "images": { "binding": "IMAGES" },                  // resizing of uploaded photos (replaces the sharp library)
-  "alias": { "sharp": "./server/lib/sharp-stub.ts" }, // sharp is native code and cannot run on Workers
+  "alias": {
+    "sharp": "./server/lib/sharp-stub.ts",           // sharp is native code and cannot run on Workers
+    "iconv-lite": "./server/lib/iconv-stub.ts"       // real iconv-lite crashes at startup in the Worker bundle (error 10021)
+  },
   "observability": { "enabled": true }
 }

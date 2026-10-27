@@ -1,8 +1,8 @@
 // Bakong KHQR: builds a dynamic QR for one order and asks Bakong whether it was paid. The ONLY way a Bakong order becomes PAID is checkPaid() returning ok.
-import { createRequire } from "node:module";
 import QRCode from "qrcode";
-const nodeRequire = createRequire(import.meta.url);
-const { BakongKHQR, khqrData, IndividualInfo } = nodeRequire("bakong-khqr") as any; // the package ships no types
+// @ts-ignore the package ships no types (CommonJS: the default import is module.exports; works in Node and in the Workers bundle, unlike createRequire)
+import khqrPkg from "bakong-khqr";
+const { BakongKHQR, khqrData, IndividualInfo } = khqrPkg as any;
 export const QR_MINUTES = 5;
 /** A customer gets this many QR codes per order (a new one is made automatically when one expires). After the last one runs out the order is cancelled and its stock goes back to the shop. */
 export const QR_MAX = 3;
